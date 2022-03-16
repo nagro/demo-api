@@ -66,6 +66,7 @@ public class DroneController {
 		 */
 	    @PostMapping("/drone")
 		public Drone registerDrone(@RequestBody Drone drone) {
+	    	
 			return droneService.saveDrone(drone);
 		}
 	    
@@ -118,7 +119,8 @@ public class DroneController {
 	    public Medication loadDrone(@PathVariable("id") String id, @RequestBody Medication item) throws Exception {
 		      Medication addedMedication = droneRepository.findById(id).map(droneElmt -> {
 		          
-		         if(droneElmt.getWeight() + item.getWeight() < properties.getWeight_limit()) {
+		         if(droneElmt.getWeight() + item.getWeight() < properties.getWeight_limit() && 
+		        		 droneElmt.getBatteryCapacity()>25 ) {
 		        	 droneElmt.setWeight(droneElmt.getWeight() + item.getWeight());
 		        	 item.setDrone(droneElmt);
 		         }
