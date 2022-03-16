@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "medications")
-public class medication {
+public class Medication {
 	
 	@Id
 	@Pattern(regexp = "^[A-Z0-9_]+$")
