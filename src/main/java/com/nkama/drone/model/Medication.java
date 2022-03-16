@@ -2,6 +2,8 @@ package com.nkama.drone.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 
@@ -22,6 +24,10 @@ public class Medication {
 	private String image;
 	
 	private double weight;
+	
+	@ManyToOne
+    @JoinColumn(name="drone_id")
+    private Drone drone;
 
 }
 

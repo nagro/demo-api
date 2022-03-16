@@ -1,17 +1,19 @@
 package com.nkama.drone.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 
 import lombok.Data;
 
-@Data
 @Entity
 @Table(name = "drones")
-
+@Data
 public class Drone {
 	
 	@Id
@@ -27,6 +29,9 @@ public class Drone {
 	private double batteryCapacity;
 	
 	private int state;
+	
+	@OneToMany(mappedBy = "drone")
+    private List<Medication> medications;
 	
 	
 }

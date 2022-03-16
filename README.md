@@ -25,7 +25,7 @@ RUN: mvnw spring-boot:run
 
 **3. Usage **
 
-registering a drone: localhost:9000/drone
+- registering a drone: POST http://localhost:9000/drone
 
 {
         "serial": "SERIAL",
@@ -35,5 +35,11 @@ registering a drone: localhost:9000/drone
         "state": 0
     }
     
+
+- checking available drones for loading: GET http://localhost:9000/drones/loading
+
+- loading a drone with medication items: POST http://localhost:9000/drone/{id}/
+
+
    
  
