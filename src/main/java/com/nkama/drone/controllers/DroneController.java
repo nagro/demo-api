@@ -1,4 +1,5 @@
 package com.nkama.drone.controllers;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.nkama.drone.model.CustomProperties;
 import com.nkama.drone.model.Drone;
 import com.nkama.drone.model.Medication;
 import com.nkama.drone.repositories.DroneRepository;
+import com.nkama.drone.repositories.MedicationRepository;
 import com.nkama.drone.service.DroneService;
 import com.nkama.drone.service.MedicationService;
 
@@ -36,6 +38,9 @@ public class DroneController {
 	
 	@Autowired
 	DroneRepository droneRepository;
+	
+	@Autowired
+	private MedicationRepository medicationRepository;
 	
 	  /**
 	    * Read - Get all drones
@@ -65,7 +70,7 @@ public class DroneController {
 		}
 	    
 	    
-	    @GetMapping("/drones/{id}")
+	    @GetMapping("/drone/{id}")
 	    public Drone getDroneById(@PathVariable("id") String id) throws Exception {
 	      Drone drone = droneService.getDrone(id).orElseThrow(() -> new Exception("Not found Drone with serial = " + id));
 	      return drone;
@@ -79,7 +84,7 @@ public class DroneController {
 	      tmpDrone.setWeight(drone.getWeight());
 	      tmpDrone.setBatteryCapacity(drone.getBatteryCapacity());
 	      tmpDrone.setState(drone.getState());
-	      tmpDrone.setMedications(drone.getMedications());
+	      //tmpDrone.setMedications(drone.getMedications());
 	      
 	      return droneService.saveDrone(tmpDrone);
 	    }
@@ -95,6 +100,7 @@ public class DroneController {
 	    
 	    @GetMapping("/drones/loading")
 	    public ResponseEntity<List<Drone>> findByloading() {
+	    	//get drones with state less than loaded
 	      List<Drone> drones = droneRepository.findByStateLessThan(properties.getLOADED());
 	      if (drones.isEmpty()) {
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -104,7 +110,54 @@ public class DroneController {
 	    }
 	    
 	    
+	    /** load a drone with medications items 
+	     * 
+	     * @return  An object Drone saved
+	     */
+	    @PostMapping("/load/{id}")
+	    public Medication loadDrone(@PathVariable("id") String id, @RequestBody Medication item) throws Exception {
+		      Medication addedMedication = droneRepository.findById(id).map(droneElmt -> {
+		          
+		         if(droneElmt.getWeight() + item.getWeight() < properties.getWeight_limit()) {
+		        	 droneElmt.setWeight(droneElmt.getWeight() + item.getWeight());
+		        	 item.setDrone(droneElmt);
+		         }
+		         //droneService.saveDrone(droneElmt);
+		          return medicationRepository.save(item);
+		        })
+		          .orElseThrow(() -> new Exception("Not found Drone with serial = " + id));
+		      
+		      return addedMedication;
+		    }
 	    
+	    
+	    /** checking loaded medication items for a given drone 
+	     * @return An Iterable list of Drones 
+	     */
+	    
+	    @GetMapping("/drone/medications/{id}")
+	    public ResponseEntity<List<Medication>> checkMedications(@PathVariable("id") String id) {
+	    	//get drones with state less than loaded
+	      List<Medication> medications = medicationRepository.findByDroneSerial(id);
+	      if (medications.isEmpty()) {
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	      }
+	      
+	      return new ResponseEntity<>(medications, HttpStatus.OK);
+	    }
+
+	    
+	    /** check drone battery level for a given drone
+	     * @return the battery level of the drone
+	     * @throws Exception 
+	     */
+	    
+	    @GetMapping("/drone/battery/{id}")
+	    public double checkBatteryLevel(@PathVariable("id") String id) throws Exception {
+	    	Drone drone = droneService.getDrone(id).orElseThrow(() -> new Exception("Not found Drone with serial = " + id));
+		      return drone.getBatteryCapacity();
+	    	
+	    }
 	    
 
 }

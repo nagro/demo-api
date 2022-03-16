@@ -18,7 +18,7 @@ public class Medication {
 	@Pattern(regexp = "^[A-Z0-9_]+$")
     private String code;
 	
-	@Pattern(regexp = "^[A-Za-z_-]+$")
+	@Pattern(regexp = "^[a-zA-Z0-9_-]+$")
 	private String name;
 	
 	private String image;

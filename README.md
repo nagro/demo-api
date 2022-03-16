@@ -36,9 +36,30 @@ RUN: mvnw spring-boot:run
     }
     
 
-- checking available drones for loading: GET http://localhost:9000/drones/loading
+- checking available drones for loading: 
 
-- loading a drone with medication items: POST http://localhost:9000/drone/{id}/
+GET http://localhost:9000/drones/loading
+
+
+
+- loading a drone with medication item: 
+
+POST http://localhost:9000/load/{id}
+
+{"code":"7CX3BLJ_F7E8D5EA56DC","name":"medoc1","image":"http://localhost/app/storage/img1","weight":2.32,"drone":null}
+
+
+- checking loaded medication items for a given drone; 
+
+GET  http://localhost:9000/drone/medications/{id}
+
+
+- check drone battery level for a given drone
+
+GET http://localhost:9000/drone/battery/{id}
+
+
+
 
 
    

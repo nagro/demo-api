@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+//import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 
@@ -30,8 +30,8 @@ public class Drone {
 	
 	private int state;
 	
-	@OneToMany(mappedBy = "drone")
-    private List<Medication> medications;
+	//@OneToMany(mappedBy = "drone")
+    //private List<Medication> medications;
 	
 	
 }
