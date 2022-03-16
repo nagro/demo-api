@@ -18,5 +18,22 @@ git clone https://github.com/nagro/demo-api.git
 
 **2. How to buid and run**
 
-Build: mvnw clean packages
+Build: mvnw clean package
+
 RUN: mvnw spring-boot:run
+
+
+**3. Usage **
+
+registering a drone: localhost:9000/drone
+
+{
+        "serial": "SERIAL",
+        "model": "MODEL",
+        "weight": 1.0,
+        "batteryCapacity": 1.0,
+        "state": 0
+    }
+    
+   
+ 

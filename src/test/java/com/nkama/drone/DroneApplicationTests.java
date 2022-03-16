@@ -26,5 +26,5 @@ class DroneApplicationTests {
             .andExpect(status().isOk());
             //.andExpect(jsonPath("$[0].batteryCapacity", is("10.15")));
     }
-
+    
 }
