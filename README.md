@@ -17,3 +17,6 @@ git clone https://github.com/nagro/demo-api.git
 ```
 
 **2. How to buid and run**
+
+Build: mvnw clean packages
+RUN: mvnw spring-boot:run

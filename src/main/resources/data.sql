@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS `drones`;
+DROP TABLE IF EXISTS drones;
 
-CREATE TABLE `drones` (
-  `serial` VARCHAR(100) PRIMARY KEY,
-  `model` VARCHAR(25) default NULL,
-  `weight` DOUBLE default NULL,
-  `battery_capacity` DOUBLE default NULL,
-  `state` TINYINT default NULL
+CREATE TABLE drones (
+  serial VARCHAR(250) PRIMARY KEY,
+  model VARCHAR(250) default NULL,
+  weight DOUBLE default NULL,
+  battery_capacity DOUBLE default NULL,
+  state TINYINT default NULL
 );
 
-INSERT INTO `drones` (`serial`,`model`,`weight`,`battery_capacity`,`state`)
+INSERT INTO drones (serial,model,weight,battery_capacity,state)
 VALUES
   ('3B7CXLJDED662-78EB-B4BB-493A-F7E8D5EA56DC','Middleweight',443,29,3),
   ('224PDN418BD-5E53-98EC-68C8-D69BAD567530','Middleweight.',87,18,0),
@@ -21,17 +21,17 @@ VALUES
   ('B39DNMDE154A-7B60-C7AC-3EB3-AA23B68BFDA9','Heavyweight',469,92,0);
 
 
-DROP TABLE IF EXISTS `medications`;
+DROP TABLE IF EXISTS medications;
 
-CREATE TABLE `medications` (
-  `code` VARCHAR(100) NOT NULL,
-  `name` VARCHAR(25) default NULL,
-  `image` TEXT default NULL,
-  `weight` DOUBLE default NULL,
-  PRIMARY KEY (`code`)
+CREATE TABLE medications (
+  code VARCHAR(250) NOT NULL,
+  name VARCHAR(250) default NULL,
+  image TEXT default NULL,
+  weight DOUBLE default NULL,
+  PRIMARY KEY (code)
 );
 
-INSERT INTO `medications` (`code`,`name`,`image`,`weight`)
+INSERT INTO medications (code,name,image,weight)
 VALUES
   ('7CX3BLJ_F7E8D5EA56DC','medoc1','http://localhost/app/storage/img1',2.32),
   ('224PBAD5675DN418BD_5E5398EC_68C8-D6930','medoc2','http://localhost/app/storage/img2',0.68),

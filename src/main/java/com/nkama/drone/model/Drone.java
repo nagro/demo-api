@@ -15,7 +15,7 @@ import lombok.Data;
 public class Drone {
 	
 	@Id
-	@Size(max = 6)
+	@Size(max = 100)
     private String serial;
 	
 	private String model;
